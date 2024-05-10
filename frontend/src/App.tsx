@@ -1,9 +1,11 @@
-import "./App.css";
+// import "./App.css";
+// import "./styles/main.css";
+import WeatherData from "./components/WeatherData";
 
 function App() {
   return (
     <>
-      <div>Hi oh hello there</div>
+      <WeatherData />
     </>
   );
 }
