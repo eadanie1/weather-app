@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 const WeatherData = () => {
   const [forecast, setForecast] = useState(null);
   const city = "Stockholm";
-  // const countryCode = "se";
-  // let location = `${city},${countryCode}`;
 
   useEffect(() => {
     const fetchWeatherData = async () => {
