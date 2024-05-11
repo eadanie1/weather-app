@@ -14,14 +14,22 @@ export const fetchWeather = () => {
     dispatch({ type: 'FETCH_WEATHER_REQUEST' });
 
     try {
-      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${import.meta.env.VITE_OPENWEATHER_API_KEY}`);
-      dispatch({
-        type: 'FETCH_WEATHER_SUCCESS',
-        payload: response.data,
-      });
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&APPID=${import.meta.env.VITE_OPENWEATHER_API_KEY}`);
+      
+      if (response.status === 200) {
+        dispatch({
+          type: FETCH_WEATHER_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: FETCH_WEATHER_FAILURE,
+          error: 'Failed to fetch weather data',
+        });
+      }
     } catch (error) {
       dispatch({
-        type: 'FETCH_WEATHER_FAILURE',
+        type: FETCH_WEATHER_FAILURE,
         error: error.message,
       });
     }

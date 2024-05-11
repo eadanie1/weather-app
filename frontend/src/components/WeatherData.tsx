@@ -1,21 +1,23 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchWeather } from "../store/actions/weatherActions";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-function WeatherData() {
-  const dispatch = useDispatch();
-  const weatherData = useSelector((state) => state.weather.data);
-  const loading = useSelector((state) => state.weather.loading);
-  const error = useSelector((state) => state.weather.error);
+const WeatherData = () => {
+  const [forecast, setForecast] = useState(null);
+  const city = "Stockholm";
+  const countryCode = "se";
+  let location = `${city},${countryCode}`;
+
+  console.log(forecast);
 
   useEffect(() => {
-    dispatch(fetchWeather());
-  }, [dispatch]);
+    const fetchWeatherData = async () => {
+      const response = await axios.get(`http://localhost:3000/forecast`);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+      setForecast(response);
+    };
+  }, []);
 
-  return <div>{/* Render weather data */}</div>;
-}
+  return <>{forecast}</>;
+};
 
 export default WeatherData;
