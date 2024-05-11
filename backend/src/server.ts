@@ -9,29 +9,20 @@ import { Request, Response, NextFunction } from 'express';
 const app = express();
 app.use(express.json(), cors());
 
-const city = 'Durban';
-const countryCode = 'uk';
-let location = `${city},${countryCode}`;
-
-app.get(
+app.post(
   '/forecast',
   tryCatch(async (req: Request, res: Response) => {
+    const { city } = req.body;
+    
     const geoCodeResponse = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.VITE_OPENWEATHER_API_KEY}`);
     const { lat, lon } = geoCodeResponse.data[0];
 
-    // console.log(geoCodeResponse.data);
+    console.log(geoCodeResponse.data);
     // console.log(lat);
     // console.log(lon);
     
     const forecastResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${process.env.VITE_OPENWEATHER_API_KEY}`);
     const forecastResponseData = forecastResponse.data.list;
-
-    // const day1 = forecastResponseData.filter(date => date.dt_txt.split(" ")[0] === forecastResponseData[0].dt_txt.split(" ")[0]);
-
-    // const day2 = forecastResponseData.filter(date => date.dt_txt.split(" ")[0] === forecastResponseData[0].dt_txt.split(" ")[0]);
-    
-    // console.log(day1);
-    // console.log(forecastResponseData);
 
     // Group forecast data by date
     const groupedData = {};
