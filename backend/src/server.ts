@@ -16,10 +16,7 @@ app.post(
     
     const geoCodeResponse = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.VITE_OPENWEATHER_API_KEY}`);
     const { lat, lon } = geoCodeResponse.data[0];
-
-    console.log(geoCodeResponse.data);
-    // console.log(lat);
-    // console.log(lon);
+    // console.log(geoCodeResponse.data);
     
     const forecastResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${process.env.VITE_OPENWEATHER_API_KEY}`);
     const forecastResponseData = forecastResponse.data.list;
@@ -36,10 +33,10 @@ app.post(
 
     // Convert grouped data to array of objects with high, low, and description
     const forecast = Object.entries(groupedData).map(([date, entries]) => {
-      const temperatures = entries.map(entry => entry.main.temp);
-      const minTemp = Math.min(...temperatures);
-      const maxTemp = Math.max(...temperatures);
-      const description = entries[0].weather[0].description;
+      const temperatures = entries.map(entry => entry.main.temp - 273.15);
+      const minTemp = Math.round(Math.min(...temperatures));
+      const maxTemp = Math.round(Math.max(...temperatures));
+      const description = entries[4]?.weather[0]?.description || entries[0].weather[0].description;
       return { date, minTemp, maxTemp, description };
     });
     
