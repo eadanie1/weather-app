@@ -1,26 +1,16 @@
-// import { combineReducers } from 'redux';
-// import weatherReducer from './weatherReducer';
-
-// const rootReducer = combineReducers({
-//   weather: weatherReducer,
-//   // add other reducers here if you have more
-// });
-
-// export default rootReducer;
-
-// rootReducer.js
-
 import { combineReducers } from 'redux';
 import {
   FETCH_WEATHER_REQUEST,
   FETCH_WEATHER_SUCCESS,
-  FETCH_WEATHER_FAILURE
+  FETCH_WEATHER_FAILURE,
+  SET_SELECTED_CITY
 } from '../actions/weatherActions';
 
 const initialWeatherState = {
   forecast: null,
   loading: false,
-  error: null
+  error: null,
+  selectedCity: 'Enter a city to show the forecast'
 };
 
 const weatherReducer = (state = initialWeatherState, action) => {
@@ -43,6 +33,11 @@ const weatherReducer = (state = initialWeatherState, action) => {
         ...state,
         loading: false,
         error: action.payload
+      };
+      case SET_SELECTED_CITY:
+      return {
+        ...state,
+        selectedCity: action.payload
       };
     default:
       return state;

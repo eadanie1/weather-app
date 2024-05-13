@@ -13,13 +13,19 @@ const WeatherForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Enter city"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
-      <button type="submit">Get Weather</button>
+      <div className="d-flex justify-content-center">
+        <input
+          className="form-control"
+          style={{ maxWidth: "300px", marginRight: "10px" }}
+          type="text"
+          placeholder="Enter city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <button type="submit" className="btn btn-dark">
+          Get weather
+        </button>
+      </div>
     </form>
   );
 };
