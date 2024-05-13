@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { BeatLoader } from "react-spinners";
 import styles from "../styles/bootstrapStyles.module.css";
 
 const WeatherDataRedux = () => {
@@ -7,18 +8,28 @@ const WeatherDataRedux = () => {
   );
 
   return (
-    <>
+    <div className={styles.weatherBackground}>
+      <div style={{ minHeight: "50px" }}>
+        {loading && (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: "50px" }}
+          >
+            <BeatLoader
+              color={"rgb(248, 153, 99)"}
+              loading={loading}
+              size={15}
+            />
+          </div>
+        )}
+      </div>
+      {error && <p className="text-danger">Error: {error}</p>}
       {selectedCity === "Enter a city to show the forecast" ? (
         <h2>{selectedCity}</h2>
       ) : (
-        <h2>Weather Forecast for {selectedCity}</h2>
+        <h2>Weather forecast for {selectedCity}</h2>
       )}
-      <table
-        className={styles.body}
-        style={{ borderCollapse: "separate", borderSpacing: "150px 40px" }}
-      >
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
+      <table className={styles.table}>
         <tbody>
           {forecast &&
             forecast.map((date, index) => {
@@ -53,7 +64,11 @@ const WeatherDataRedux = () => {
             })}
         </tbody>
       </table>
-    </>
+      {/* <video autoPlay loop muted className={styles.videoBackground}>
+        <source src="../assets/clouds.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video> */}
+    </div>
   );
 };
 

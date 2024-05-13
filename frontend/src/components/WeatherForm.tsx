@@ -12,7 +12,7 @@ const WeatherForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="mt-3">
       <div className="d-flex justify-content-center">
         <input
           className="form-control"

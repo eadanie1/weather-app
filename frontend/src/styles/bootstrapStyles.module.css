@@ -1,3 +1,61 @@
+/* body {
+  background-color: rgb(90, 90, 90) !important;
+  background-image: url('../assets/cloudsSunset.jpg') !important;
+  background-image: url('../assets/clouds.mp4') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  animation: play-video 60s linear infinite !important;
+} */
+
 body {
   background-color: rgb(90, 90, 90) !important;
+  background-image: url('../assets/cloudsSunset.jpg') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
 }
+
+.table {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgb(82, 99, 129);
+  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 40px 40px;
+  /* padding: 8px; */
+}
+
+/* .weatherBackground {
+  background-image: url('../assets/cloudsSunset.jpg') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+} */
+
+/* .weather-background {
+  background-image: url('../assets/Screenshot.png') !important;
+  background-image: url('../assets/5197505-hd_1920_1080_30fps.mp4') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  animation: play-video 60s linear infinite !important;
+} */
+
+/* @keyframes play-video {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+} */
+
+/* .weatherBackground {
+  position: relative;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+} */
