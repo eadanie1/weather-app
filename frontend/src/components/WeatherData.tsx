@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import MyGridComponent from "./GridComponent";
 
 const WeatherData = () => {
   const [forecast, setForecast] = useState(null);
@@ -20,7 +19,9 @@ const WeatherData = () => {
 
   return (
     <>
-      <table>
+      <table
+        style={{ borderCollapse: "separate", borderSpacing: "150px 40px" }}
+      >
         <tbody>
           {forecast &&
             forecast.map((date, index) => {
@@ -34,19 +35,20 @@ const WeatherData = () => {
               });
 
               return (
-                <tr
-                  key={`${date.date}-${index}`}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    minWidth: "500px",
-                  }}
-                >
-                  <td key={`${date.date}-${index}-date`}>{formattedDate}</td>
-                  <td key={`${date.date}-${index}-minTemp`}>
-                    {date.minTemp}/{date.maxTemp}&deg;C
+                <tr key={`${date.date}-${index}`}>
+                  <td
+                    key={`${date.date}-${index}-date`}
+                    style={{ textAlign: "left" }}
+                  >
+                    {formattedDate}
                   </td>
-                  <td key={`${date.date}-${index}-description`}>
+                  <td key={`${date.date}-${index}-minTemp`}>
+                    {date.minTemp} / {date.maxTemp}&deg;C
+                  </td>
+                  <td
+                    key={`${date.date}-${index}-description`}
+                    style={{ textAlign: "right" }}
+                  >
                     {date.description}
                   </td>
                 </tr>
