@@ -5,15 +5,16 @@ import {
   FETCH_WEATHER_FAILURE,
   SET_SELECTED_CITY
 } from '../actions/weatherActions';
+import { WeatherActionTypes, WeatherState } from '../../types/types';
 
-const initialWeatherState = {
+const initialWeatherState: WeatherState = {
   forecast: null,
   loading: false,
   error: null,
   selectedCity: 'Enter a city to show the forecast'
 };
 
-const weatherReducer = (state = initialWeatherState, action) => {
+const weatherReducer = (state: WeatherState = initialWeatherState, action: WeatherActionTypes): WeatherState => {
   switch (action.type) {
     case FETCH_WEATHER_REQUEST:
       return {
@@ -47,5 +48,7 @@ const weatherReducer = (state = initialWeatherState, action) => {
 const rootReducer = combineReducers({
   weather: weatherReducer
 });
+
+// export type RootState = ReturnType<typeof rootReducer>;
 
 export default rootReducer;

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchWeather } from "../store/actions/weatherActions";
+import { Dispatch } from "redux";
 
 const WeatherForm = () => {
-  const [city, setCity] = useState("");
-  const dispatch = useDispatch();
+  const [city, setCity] = useState<string>("");
+  const dispatch: Dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(fetchWeather(city));
   };
 

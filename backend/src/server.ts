@@ -5,15 +5,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { tryCatch } from './global-logic/tryCatch.js'
 import { Request, Response, NextFunction } from 'express';
-import { ForecastCity } from './types/types.js';
-import { errorHandler } from './global-logic/error-handler.js';
+import { ErrorResponse, ForecastCity, ForecastEntry, GroupedData, WeatherState } from './types/types.js';
 
 const app = express();
 app.use(express.json(), cors());
 
 app.post(
   '/forecast',
-  tryCatch(async (req: Request<{}, {}, ForecastCity>, res: Response) => {
+  tryCatch(async (req: Request<{}, {}, ForecastCity>, res: Response<WeatherState | ErrorResponse | void>): Promise<void> => {
     const { city } = req.body;
     
     const geoCodeResponse = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.VITE_OPENWEATHER_API_KEY}`);
@@ -21,7 +20,8 @@ app.post(
     const { data } = geoCodeResponse;
     if (!Array.isArray(data) || data.length === 0) {
       // return res.status(404).json("City not found");
-      return res.status(404).json({message: "City not found"});
+      res.status(404).json({message: "City not found"});
+      return;
     }
 
     const { lat, lon } = data[0];
@@ -30,12 +30,13 @@ app.post(
     const forecastResponseData = forecastResponse.data.list;  
     
     if (!forecastResponseData || forecastResponseData.length === 0) {
-      return res.status(500).json("Fetching the forecast data failed");
+      res.status(500).json({ message: "Fetching the forecast data failed" });
+      return;
     }
 
     // Group forecast data by date
-    const groupedData: object = {};
-    forecastResponseData.forEach(entry => {
+    const groupedData: GroupedData = {};
+    forecastResponseData.forEach((entry: ForecastEntry) => {
       const date = entry.dt_txt.split(" ")[0];
       if (!groupedData[date]) {
         groupedData[date] = [];
@@ -52,7 +53,8 @@ app.post(
       return { date, minTemp, maxTemp, description };
     });
     
-    return res.json({ forecast })
+    res.json({ forecast });
+    return;
   })
 );
 

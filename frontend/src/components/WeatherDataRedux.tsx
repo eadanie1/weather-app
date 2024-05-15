@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import styles from "../styles/bootstrapStyles.module.css";
+import { Weather, WeatherState } from "../types/types";
 
 const WeatherDataRedux = () => {
   const { forecast, loading, error, selectedCity } = useSelector(
-    (state) => state.weather
+    (state: WeatherState) => state.weather
   );
 
-  const formatCity = (city) => {
+  const formatCity = (city: string): string => {
     return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
   };
 
@@ -38,10 +39,8 @@ const WeatherDataRedux = () => {
       <table className={styles.frame}>
         <tbody>
           {forecast &&
-            forecast.map((date, index) => {
-              // Parse the date string
+            forecast.map((date: Weather, index: number) => {
               const parsedDate = new Date(date.date);
-              // Format the date as "Sun, May 12"
               const formattedDate = parsedDate.toLocaleString("en-US", {
                 weekday: "short",
                 month: "short",
@@ -70,10 +69,6 @@ const WeatherDataRedux = () => {
             })}
         </tbody>
       </table>
-      {/* <video autoPlay loop muted className={styles.videoBackground}>
-        <source src="../assets/clouds.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video> */}
     </div>
   );
 };
