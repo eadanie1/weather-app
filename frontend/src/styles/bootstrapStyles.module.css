@@ -14,13 +14,16 @@ body {
   background-repeat: no-repeat !important;
 }
 
-.table {
-  background-color: rgba(0, 0, 0, 0.3);
+.frame {
+  background-color: rgba(0, 0, 0, 0.35);
   border: 1px solid rgb(82, 99, 129);
   border-radius: 10px;
   border-collapse: separate;
-  border-spacing: 40px 40px;
-  /* padding: 8px; */
+  border-spacing: 50px 40px;
+}
+
+td {
+  color: rgb(233, 127, 56);
 }
 
 /* .weatherBackground {

@@ -5,24 +5,36 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { tryCatch } from './global-logic/tryCatch.js'
 import { Request, Response, NextFunction } from 'express';
+import { ForecastCity } from './types/types.js';
+import { errorHandler } from './global-logic/error-handler.js';
 
 const app = express();
 app.use(express.json(), cors());
 
 app.post(
   '/forecast',
-  tryCatch(async (req: Request, res: Response) => {
+  tryCatch(async (req: Request<{}, {}, ForecastCity>, res: Response) => {
     const { city } = req.body;
     
     const geoCodeResponse = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${process.env.VITE_OPENWEATHER_API_KEY}`);
-    const { lat, lon } = geoCodeResponse.data[0];
-    // console.log(geoCodeResponse.data);
+
+    const { data } = geoCodeResponse;
+    if (!Array.isArray(data) || data.length === 0) {
+      // return res.status(404).json("City not found");
+      return res.status(404).json({message: "City not found"});
+    }
+
+    const { lat, lon } = data[0];
     
     const forecastResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${process.env.VITE_OPENWEATHER_API_KEY}`);
-    const forecastResponseData = forecastResponse.data.list;
+    const forecastResponseData = forecastResponse.data.list;  
+    
+    if (!forecastResponseData || forecastResponseData.length === 0) {
+      return res.status(500).json("Fetching the forecast data failed");
+    }
 
     // Group forecast data by date
-    const groupedData = {};
+    const groupedData: object = {};
     forecastResponseData.forEach(entry => {
       const date = entry.dt_txt.split(" ")[0];
       if (!groupedData[date]) {
@@ -40,7 +52,7 @@ app.post(
       return { date, minTemp, maxTemp, description };
     });
     
-    res.json({ forecast })
+    return res.json({ forecast })
   })
 );
 

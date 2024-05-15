@@ -34,6 +34,10 @@ export const fetchWeather = (city) => async (dispatch) => {
     dispatch(setSelectedCity(city));
     dispatch(fetchWeatherSuccess(response.data.forecast));
   } catch (error) {
-    dispatch(fetchWeatherFailure(error.message));
+    if (error.response.data.message) {
+      dispatch(fetchWeatherFailure(error.response.data.message));
+    } else {
+      dispatch(fetchWeatherFailure("An error occurred while fetching weather data"));
+    }
   }
 };

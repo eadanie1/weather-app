@@ -7,6 +7,10 @@ const WeatherDataRedux = () => {
     (state) => state.weather
   );
 
+  const formatCity = (city) => {
+    return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+  };
+
   return (
     <div className={styles.weatherBackground}>
       <div style={{ minHeight: "50px" }}>
@@ -23,13 +27,15 @@ const WeatherDataRedux = () => {
           </div>
         )}
       </div>
-      {error && <p className="text-danger">Error: {error}</p>}
+      {error && <p className={`${styles.frame} text-danger`}>Error: {error}</p>}
       {selectedCity === "Enter a city to show the forecast" ? (
         <h2>{selectedCity}</h2>
       ) : (
-        <h2>Weather forecast for {selectedCity}</h2>
+        <h2 style={{ maxWidth: "500px" }}>
+          Weather forecast for {formatCity(selectedCity)}
+        </h2>
       )}
-      <table className={styles.table}>
+      <table className={styles.frame}>
         <tbody>
           {forecast &&
             forecast.map((date, index) => {

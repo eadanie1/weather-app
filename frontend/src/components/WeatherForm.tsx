@@ -21,6 +21,9 @@ const WeatherForm = () => {
           placeholder="Enter city"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          pattern=".{3,}"
+          title="Please enter at least 3 characters"
+          required
         />
         <button type="submit" className="btn btn-dark">
           Get weather
