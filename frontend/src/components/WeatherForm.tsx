@@ -16,6 +16,7 @@ const WeatherForm = () => {
     <form onSubmit={handleSubmit} className="mt-3">
       <div className="d-flex justify-content-center">
         <input
+          id="city-form"
           className="form-control"
           style={{ maxWidth: "300px", marginRight: "10px" }}
           type="text"

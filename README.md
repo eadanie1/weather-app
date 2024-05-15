@@ -39,15 +39,6 @@ This project is a weather forecast application that fetches weather data from th
    VITE_OPENWEATHER_API_KEY=your_api_key
    ```
 
-5. Start the backend server:
-
-   ```bash
-   # In the backend directory
-   npm run devstart
-   ```
-
-6. Ser is now listening to incoming requests on `http://localhost:3000`.
-
 ## Backend
 
 The backend server is built using Express.js. It exposes a single endpoint `/forecast` that accepts a POST request with the city name in the request body. It then fetches weather data from the OpenWeatherMap API and returns the forecast data.
@@ -61,17 +52,13 @@ The backend server is built using Express.js. It exposes a single endpoint `/for
 
 ### Running the Backend
 
-1. Install dependencies:
+1. Start the server:
 
    ```bash
-   npm install
+   npm run devstart
    ```
 
-2. Start the server:
-
-   ```bash
-   npm start
-   ```
+2. Server is now listening to incoming requests on `http://localhost:3000`.
 
 ## Frontend
 
@@ -90,19 +77,13 @@ The frontend is a React application that communicates with the backend to fetch 
 
 ### Running the Frontend
 
-1. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-2. Start the development server:
+1. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-3. Open your browser and navigate to `http://localhost:5173` to view the app.
+2. Open your browser and navigate to `http://localhost:5173` to view the app.
 
 ## Redux State Management
 
