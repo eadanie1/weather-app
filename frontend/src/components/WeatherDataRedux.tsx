@@ -36,39 +36,41 @@ const WeatherDataRedux = () => {
           Weather forecast for {formatCity(selectedCity)}
         </h2>
       )}
-      <table className={styles.frame}>
-        <tbody>
-          {forecast &&
-            forecast.map((date: Weather, index: number) => {
-              const parsedDate = new Date(date.date);
-              const formattedDate = parsedDate.toLocaleString("en-US", {
-                weekday: "short",
-                month: "short",
-                day: "numeric",
-              });
+      {forecast && (
+        <table className={styles.frame}>
+          <tbody>
+            {forecast &&
+              forecast.map((date: Weather, index: number) => {
+                const parsedDate = new Date(date.date);
+                const formattedDate = parsedDate.toLocaleString("en-US", {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
+                });
 
-              return (
-                <tr key={`${date.date}-${index}`}>
-                  <td
-                    key={`${date.date}-${index}-date`}
-                    style={{ textAlign: "left" }}
-                  >
-                    {formattedDate}
-                  </td>
-                  <td key={`${date.date}-${index}-minTemp`}>
-                    {date.minTemp} / {date.maxTemp}&deg;C
-                  </td>
-                  <td
-                    key={`${date.date}-${index}-description`}
-                    style={{ textAlign: "right" }}
-                  >
-                    {date.description}
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+                return (
+                  <tr key={`${date.date}-${index}`}>
+                    <td
+                      key={`${date.date}-${index}-date`}
+                      style={{ textAlign: "left" }}
+                    >
+                      {formattedDate}
+                    </td>
+                    <td key={`${date.date}-${index}-minTemp`}>
+                      {date.minTemp} / {date.maxTemp}&deg;C
+                    </td>
+                    <td
+                      key={`${date.date}-${index}-description`}
+                      style={{ textAlign: "right" }}
+                    >
+                      {date.description}
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
