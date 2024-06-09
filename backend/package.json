@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devstart": "node ./dist/server.js"
+    "devstart": "node ./dist/server.js",
+    "start": "node ./dist/server.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +26,7 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.11",
     "ts-jest": "^29.1.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "nodemon": "^2.0.22"
   }
 }

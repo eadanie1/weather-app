@@ -2,12 +2,12 @@
   "compilerOptions": {
     "types": ["node"],
     "target": "es6",
-    "module": "es6",
+    "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./src"
   },
-  "type": "module",
+  "include": ["src/**/*"]
 }
