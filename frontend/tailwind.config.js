@@ -1,15 +1,11 @@
 /** @type {import('tailwindcss').Config} */
-import { defineConfig } from 'tailwindcss';
-
-export default defineConfig({
-  mode: 'jit',
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {},
   },
-  variants: {
-    extend: {},
-  },
   plugins: [],
-});
+}
