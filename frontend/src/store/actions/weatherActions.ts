@@ -31,7 +31,7 @@ export const setSelectedCity = (city: string): { type: string, payload: string }
 export const fetchWeather = (city: string) => async (dispatch: Dispatch):Promise<WeatherState | void> => {
   dispatch(fetchWeatherRequest());
   try {
-    const response = await axios.post(`http://localhost:3000/forecast`, { city });
+    const response = await axios.post(`https://weather-app-production-5bf7.up.railway.app/forecast`, { city });
 
     dispatch(setSelectedCity(city));
     dispatch(fetchWeatherSuccess(response.data.forecast));
