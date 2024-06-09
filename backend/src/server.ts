@@ -34,7 +34,6 @@ app.post(
       return;
     }
 
-    // Group forecast data by date
     const groupedData: GroupedData = {};
     forecastResponseData.forEach((entry: ForecastEntry) => {
       const date = entry.dt_txt.split(" ")[0];
@@ -44,7 +43,6 @@ app.post(
       groupedData[date].push(entry);
     });
 
-    // Convert grouped data to array of objects with high, low, and description
     const forecast = Object.entries(groupedData).map(([date, entries]) => {
       const temperatures = entries.map(entry => entry.main.temp - 273.15);
       const minTemp = Math.round(Math.min(...temperatures));
