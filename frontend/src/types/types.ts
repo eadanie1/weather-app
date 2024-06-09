@@ -8,10 +8,12 @@ export interface Weather {
 }
 
 export interface WeatherState {
+  weather: {
     forecast: Weather[] | null;
     loading: boolean;
     error: string | null;
     selectedCity: string;
+  }
 }
 
 export interface FetchWeatherRequestAction {

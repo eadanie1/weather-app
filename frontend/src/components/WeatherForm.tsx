@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 
 const WeatherForm = () => {
   const [city, setCity] = useState<string>("");
-  const dispatch: Dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
