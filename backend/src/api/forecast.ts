@@ -1,10 +1,9 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-import { ForecastCity, ForecastEntry, GroupedData, WeatherState, ErrorResponse } from './types/types.js';
+import { ForecastCity, ForecastEntry, GroupedData, WeatherState, ErrorResponse } from '../types/types';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     res.status(405).json({ message: "Method Not Allowed" });
     return;
@@ -19,6 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       res.status(404).json({ message: "City not found" });
       return;
     }
+
     const { lat, lon } = data[0];
     const forecastResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${process.env.VITE_OPENWEATHER_API_KEY}`);
     const forecastResponseData = forecastResponse.data.list;
@@ -36,8 +36,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
       groupedData[date].push(entry);
     });
-    const forecast = Object.entries(groupedData).map(([date, entries]) => {
-      const temperatures = entries.map(entry => entry.main.temp - 273.15);
+    const forecast = Object.entries(groupedData).map(([date, entries]: [string, ForecastEntry[]]) => {
+      const temperatures = entries.map((entry) => entry.main.temp - 273.15);
       const minTemp = Math.round(Math.min(...temperatures));
       const maxTemp = Math.round(Math.max(...temperatures));
       const description = entries[4]?.weather[0]?.description || entries[0].weather[0].description;
