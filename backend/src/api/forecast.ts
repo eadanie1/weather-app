@@ -4,6 +4,13 @@ dotenv.config();
 import { ForecastCity, ForecastEntry, GroupedData, WeatherState, ErrorResponse } from '../types/types';
 
 export default async function handler(req: any, res: any) {
+  res.setHeader('Access-Control-Allow-Origin', 'https://weather-services.netlify.app');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
   if (req.method !== 'POST') {
     res.status(405).json({ message: "Method Not Allowed" });
     return;
@@ -36,6 +43,7 @@ export default async function handler(req: any, res: any) {
       }
       groupedData[date].push(entry);
     });
+
     const forecast = Object.entries(groupedData).map(([date, entries]: [string, ForecastEntry[]]) => {
       const temperatures = entries.map((entry) => entry.main.temp - 273.15);
       const minTemp = Math.round(Math.min(...temperatures));
@@ -45,6 +53,7 @@ export default async function handler(req: any, res: any) {
     });
 
     res.status(200).json({ forecast });
+
   } catch (error: any) {
     res.status(500).json({ message: error.message || "Unexpected error" });
   }
