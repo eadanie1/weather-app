@@ -4,7 +4,7 @@ dotenv.config();
 import { ForecastCity, ForecastEntry, GroupedData, WeatherState, ErrorResponse } from '../types/types';
 
 export default async function handler(req: any, res: any) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://weather-services.netlify.app');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
