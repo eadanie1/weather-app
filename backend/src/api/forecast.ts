@@ -7,6 +7,7 @@ export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', 'https://weather-services.netlify.app');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
@@ -15,6 +16,7 @@ export default async function handler(req: any, res: any) {
     res.status(405).json({ message: "Method Not Allowed" });
     return;
   }
+
   const { city } = req.body as ForecastCity;
 
   try {
@@ -27,6 +29,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const { lat, lon } = data[0];
+
     const forecastResponse = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${process.env.VITE_OPENWEATHER_API_KEY}`);
     const forecastResponseData = forecastResponse.data.list;
 
