@@ -31,7 +31,7 @@ export const setSelectedCity = (city: string): { type: string, payload: string }
 export const fetchWeather = (city: string) => async (dispatch: Dispatch):Promise<WeatherState | void> => {
   dispatch(fetchWeatherRequest());
   try {
-    const response = await axios.post(`https://weather-app-orpin-two-37.vercel.app/api/forecast`, { city });
+    const response = await axios.post(`weather-app-production-3618.up.railway.app`, { city });
 
     dispatch(setSelectedCity(city));
     dispatch(fetchWeatherSuccess(response.data.forecast));
